@@ -17,6 +17,7 @@ import {createStackNavigator} from 'react-navigation'
 import {Tabar} from './Tab'
 import {UserList} from './userlist'
 import {AsyncStorage} from 'react-native'
+import {MainScreen} from './MainScreen'
  
 
 
@@ -62,6 +63,9 @@ export default class App extends Component{
 
 export const RootStack=createStackNavigator({
   
+  Main:{
+    screen:MainScreen
+  },
   Home:{
     screen:SignIn
   },

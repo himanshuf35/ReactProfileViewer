@@ -6,6 +6,7 @@ import {styles} from './App'
 import {GButton} from './button'
 import {RootStack} from './App'
 import {AsyncStorage} from 'react-native'
+
 export class SignIn extends Component
 {
     static navigationOptions = {
@@ -21,22 +22,22 @@ export class SignIn extends Component
         password:'',
         isPassValid:false
         }
-        this.isLoggedIn()
+        // this.isLoggedIn()
     }
 
-    isLoggedIn=async()=>
-  {
-           const value=await AsyncStorage.getItem("token")
-           console.log(value);
-           if(value !== null)
-           {
-            this.props.navigation.navigate('UserList')
-           }
-        //    else{
+//     isLoggedIn=async()=>
+//   {
+//            const value=await AsyncStorage.getItem("token")
+//            console.log(value);
+//            if(value !== null)
+//            {
+//             this.props.navigation.navigate('UserList')
+//            }
+//         //    else{
            
-        //    } this.setState({screenToNavigate:'Home'})
-          //  console.log(value);
-  }
+//         //    } this.setState({screenToNavigate:'Home'})
+//           //  console.log(value);
+//   }
 
     userSignIn=async()=>{
         console.log("entered userSignIn")
@@ -134,7 +135,7 @@ export class SignIn extends Component
                          this.userSignIn()
                         // this.props.navigation.navigate('UserList')
                          
-                         }}title="SignIn"/>
+                         }} title="SignIn"/>
                  </View>
                  <View>
                      <TouchableOpacity onPress={()=>{this.props.navigation.navigate('SignUp')}}>
@@ -143,7 +144,7 @@ export class SignIn extends Component
                          </Text>
                      </TouchableOpacity>
                  </View>
-                 <Text>{this.props.navigation.state.params.email},{this.props.navigation.state.params.password}</Text>
+                 {/* <Text>{this.props.navigation.state.params.email},{this.props.navigation.state.params.password}</Text> */}
                  
                  
             </View>

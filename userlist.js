@@ -16,13 +16,21 @@ export class UserList extends Component
     constructor(props)
     {
         super(props)
+        this.getUserData()
         this.getData()
         this.state={
-          data:this.Data
+          data:this.Data,
+          accessToken:'',
+          userdata:{}
         }
     }
     getUserData=async()=>{
+        const token=await AsyncStorage.getItem("token")
         const value=await AsyncStorage.getItem("UserData")
+        this.setState({
+            accessToken:token,
+            userdata:value
+        })
         console.log(value);
         
     }
@@ -35,7 +43,9 @@ export class UserList extends Component
             {
                 'method':'GET',
                 'headers':{
-                    'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhpbWFuc2h1bWtpQG91dGxvb2suY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkUVhDSDBSUjBoMWhMZDZjRHEwTXRoTzFLNElXTmFjQjhEcTBnUFFqU0lwWHIucEpNazFrNEciLCJpYXQiOjE1MzU2MTk3NzMsImV4cCI6MTUzNTcwNjE3M30.wJAdI6qhjpeCiro8nllHmjXgqFwK_2f1YATVW1FfArQ'
+                    'x-access-token':this.state.accessToken
+
+                    // 'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhpbWFuc2h1bWtpQG91dGxvb2suY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkUVhDSDBSUjBoMWhMZDZjRHEwTXRoTzFLNElXTmFjQjhEcTBnUFFqU0lwWHIucEpNazFrNEciLCJpYXQiOjE1MzU2MTk3NzMsImV4cCI6MTUzNTcwNjE3M30.wJAdI6qhjpeCiro8nllHmjXgqFwK_2f1YATVW1FfArQ'
                 }
             })
    
