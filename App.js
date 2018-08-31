@@ -18,6 +18,7 @@ import {Tabar} from './Tab'
 import {UserList} from './userlist'
 import {AsyncStorage} from 'react-native'
 import {MainScreen} from './MainScreen'
+import {Profile} from './Profile'
  
 
 
@@ -26,7 +27,7 @@ export default class App extends Component{
   constructor(props)
   {
     super(props)
-    this.isLoggedIn()
+    // this.isLoggedIn()
     this.state={
       email:'himanshumki@outlook.com',
       password:'blackbirdx71',
@@ -36,19 +37,19 @@ export default class App extends Component{
     
   }
 
-  isLoggedIn=async()=>
-  {
-           const value=await AsyncStorage.getItem("token")
-           console.log(value);
-           if(value !== null)
-           {
-            this.setState({screenToNavigate:'UserList'})
-           }
-           else{
-            this.setState({screenToNavigate:'Home'})
-           }
-          //  console.log(value);
-  }
+  // isLoggedIn=async()=>
+  // {
+  //          const value=await AsyncStorage.getItem("token")
+  //          console.log(value);
+  //          if(value !== null)
+  //          {
+  //           this.setState({screenToNavigate:'UserList'})
+  //          }
+  //          else{
+  //           this.setState({screenToNavigate:'Home'})
+  //          }
+  //         //  console.log(value);
+  // }
 
   render() {
    
@@ -77,6 +78,9 @@ export const RootStack=createStackNavigator({
   },
   UserList:{
     screen:UserList
+  },
+  Profile:{
+    screen:Profile
   }
   
 },{

@@ -23,8 +23,10 @@ export class MainScreen extends Component{
     
     isLoggedIn=async()=>
     {
+
+            //  await AsyncStorage.setItem('UserData',"Himanshu")
              const value=await AsyncStorage.getItem("token")
-             console.log(value);
+            //  console.log(value);
              if(value !== null)
              {
               this.props.navigation.navigate('UserList')
@@ -32,7 +34,7 @@ export class MainScreen extends Component{
              else{
                 this.props.navigation.navigate('Home')
              } 
-             console.log(value);
+            //  console.log(value);
     }
 
     render()

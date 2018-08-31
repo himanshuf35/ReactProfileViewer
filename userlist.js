@@ -17,29 +17,41 @@ export class UserList extends Component
     {
         super(props)
         this.getUserData()
-        this.getData()
+        // this.getData()
         this.state={
           data:this.Data,
           accessToken:'',
-          userdata:{}
+          userdata:{},
+          page:1,
+          userImage:''
         }
     }
+
+    //function to get UserData
+
     getUserData=async()=>{
         const token=await AsyncStorage.getItem("token")
+        console.log(token);
         const value=await AsyncStorage.getItem("UserData")
-        this.setState({
+          console.log(value);
+          await this.setState({
             accessToken:token,
-            userdata:value
+            userdata:JSON.parse(value)
         })
-        console.log(value);
+         await this.getData();
+        
+        console.log(this.state.accessToken+","+this.state.userdata)
+        // console.log(value);
         
     }
+
+    //function to get Userlist Data
 
     getData=async()=>{
         console.log("entered getData")
         try {
             console.log("After Try")
-            const res= await fetch('http://192.168.12.39:7000/api/v1/user/getUserList/0/1/10',
+            const res= await fetch('http://192.168.12.39:7000/api/v1/user/getUserList/0/'+this.state.page+'/10',
             {
                 'method':'GET',
                 'headers':{
@@ -51,9 +63,10 @@ export class UserList extends Component
    
      
     const data=await res.json();
+    console.log(data)
     this.Data=data.message.results
-    this.setState({data:this.Data})
-    console.log(this.Data)
+    this.setState({data:this.state.data.concat(data.message.results),page:this.state.page+1})
+     
 
         } catch (error) {
             
@@ -62,6 +75,8 @@ export class UserList extends Component
         }
         
     }
+ 
+    //Logout Function
 
     logout=async()=>
     {
@@ -92,18 +107,23 @@ export class UserList extends Component
             console.log(error)
         }
     }
+ 
+    //Render Function
 
     render()
     {
         console.log("started")
+        console.log(this.state.page)
+        console.log(this.state.userdata)
        
         
         return(
 
             <View>
-
-
+                
+               
                 <View style={styles.header}>
+
 
                 <Image style={styles.img} source={require('./orange.png')}/>
                 <Text style={{fontSize:24,color:'white',textAlign:'center'}}>{this.state.title}</Text>
@@ -117,6 +137,22 @@ export class UserList extends Component
                 <Image source={require('./filter-tool-black-shape.png')}/>
                 </TouchableOpacity> */}
                 
+                <View style={styles.profile}>
+                    <TouchableOpacity
+                    onPress={()=>{this.props.navigation.navigate('Profile')}}>
+
+                        <Image style={styles.userimage} source={{uri:'http://192.168.12.39:7000/'+this.state.userdata.image}}>
+
+                        </Image>
+
+                    </TouchableOpacity>
+                    <Text style={styles.username}>
+                            {this.state.userdata.name}
+                    </Text>
+ 
+                </View>
+
+
                 <TouchableOpacity style={styles.filter} onPress={()=>{this.logout()}}>
                 <Image source={require('./logout.png')}/>
                 </TouchableOpacity>
@@ -125,10 +161,20 @@ export class UserList extends Component
 
                  
                  <FlatList
+                 onEndReached={()=>{this.getData()}}
                  data={this.state.data}
                  extraData={this.state}
                  renderItem={({item})=>{
-                     return(<Text>{ item.name.first}</Text>)
+                     return(
+                         <View style={styles.infoBox}>
+                      <Text style={styles.innerText}>{item.name.first} {item.name.last}</Text>
+                     <Text style={styles.innerText}>{ item.gender}</Text>
+                     <Text style={styles.innerText}>{ item.email}</Text>
+                     <Text style={styles.innerText}>{ item.phone}</Text>
+                     <Text style={styles.innerText}>{ item.location.city}</Text>
+                         </View>
+                     
+                     )
                      }}
                  />
                      
@@ -141,9 +187,9 @@ export class UserList extends Component
 const styles=StyleSheet.create({
     header: {
         height:70,
-        width: wp('100%')
+        width: wp('100%'),
         // alignItems: 'center',
-        // justifyContent: 'center',
+         justifyContent: 'center',
       },
       img:{
         position:'absolute',
@@ -153,6 +199,28 @@ const styles=StyleSheet.create({
         position:'absolute',
         top:20,
         right:10
-  
-      }
+      },
+      innerText:{
+          textAlign:'center'
+      },
+      infoBox:{
+          margin:5,
+          padding: 10,
+          borderBottomWidth: 1,
+      },
+      username:{
+          position:'absolute',
+          left:60,
+          color:'white',
+          fontSize:20
+      },
+      profile:{
+          justifyContent:'center',
+          paddingLeft:10
+      },
+      userimage:{
+          height:50,
+          width:50,
+        }
+
 })

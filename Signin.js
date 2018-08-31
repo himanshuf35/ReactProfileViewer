@@ -61,7 +61,7 @@ export class SignIn extends Component
           if(data.success)
           {
             this.storeToken(data.token,data.data)
-            console.log(data)
+            console.log("here"+data)
             this.props.navigation.navigate('UserList');
             alert("Logged In")
 
@@ -88,7 +88,7 @@ export class SignIn extends Component
             // const value=await AsyncStorage.getItem("token")
             // console.log(value);
              await AsyncStorage.setItem('token',Token)
-             await AsyncStorage.setItem('UserData',userdata)
+             await AsyncStorage.setItem('UserData',JSON.stringify(userdata))
            
         } 
         

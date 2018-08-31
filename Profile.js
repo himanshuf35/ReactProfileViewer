@@ -1,13 +1,27 @@
 import React,{Component} from 'react'
-import {View,TextInput,StyleSheet,Image} from 'react-native' 
+import {View,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native' 
 import {Field} from './Fields'
 import {fstyles} from './Fields'
 import {styles} from './App'
 import {GButton} from './button'
 
+var ImagePicker = require('react-native-image-picker');
+
+var options = {
+    title: 'Select Avatar',
+    customButtons: [
+      {name: 'fb', title: 'Choose Photo from Facebook'},
+    ],
+    storageOptions: {
+      skipBackup: true,
+      path: 'images'
+    }
+  };
+
 export class Profile extends Component{
     static navigationOptions = {
         title: 'Profile',
+        header:null
       };
 
 constructor(props)
@@ -16,15 +30,58 @@ constructor(props)
     this.state={
         name:'',
         email:'',
-        password:''
+        password:'',
+        avatarSource:require('./man.png')
     }
 }
 
+
+
 render()
 {
+
+    
+
+
     return(
         <View style={Styles.container}>
-        <Image style={{marginTop:40,marginBottom:40}} source={require('./man.png')}/>
+        {/* <Image style={{marginTop:40,marginBottom:40}} source={require('./man.png')}/> */}
+
+        <TouchableOpacity onPress={()=>{
+
+           ImagePicker.showImagePicker(options, (response) => {
+        console.log('Response = ', response);
+      
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        }
+        else if (response.error) {
+          console.log('ImagePicker Error: ', response.error);
+        }
+        else if (response.customButton) {
+          console.log('User tapped custom button: ', response.customButton);
+        }
+        else {
+          let source = { uri: response.uri };
+      
+          // You can also display the image using data:
+          // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+      
+          this.setState({
+            avatarSource: source
+          });
+          console.log(this.state.avatarSource)
+        }
+      });
+               
+
+        }}>
+
+        <Image source={this.state.avatarSource} style={Styles.uploadAvatar} />
+
+        </TouchableOpacity>
+       
+
         <TextInput style={fstyles.Inputfield} placeholder="Me" ></TextInput>
         <TextInput style={fstyles.Inputfield} placeholder="xyz.com" ></TextInput>
         <TextInput style={Styles.Bottomfield} placeholder="******" ></TextInput>
@@ -49,6 +106,10 @@ const Styles=StyleSheet.create(
         flex: 1,
         alignItems: 'center',
         backgroundColor: 'white',
-      }
+      },
+      uploadAvatar:{
+          marginTop:50,
+          marginBottom:40
+        }
     }
 )
