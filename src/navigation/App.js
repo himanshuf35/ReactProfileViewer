@@ -7,18 +7,21 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,TextInput} from 'react-native';
-import {Field} from './Fields'
-import {fstyles} from './Fields'
-import {SignIn} from './Signin'
-import {SignUP} from './SignUp'
+import { StyleSheet} from 'react-native';
+import {SignIn} from '../screens/Signin'
+import {SignUP} from '../screens/SignUp'
 import {StackNavigator} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation'
-import {Tabar} from './Tab'
-import {UserList} from './userlist'
+import {Tabar} from '../navigation/Tab'
+import {UserList} from '../screens/userlist'
 import {AsyncStorage} from 'react-native'
-import {MainScreen} from './MainScreen'
-import {Profile} from './Profile'
+import {MainScreen} from '../screens/MainScreen'
+import {Profile} from '../screens/Profile'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+import MainReducer from '../redux_code/reducer/mainReducer'
+
+const store=createStore(MainReducer)
  
 
 
@@ -56,7 +59,10 @@ export default class App extends Component{
 
       
       return(
-         <RootStack email={this.state.email} password={this.state.password}></RootStack>
+        <Provider store={store}>
+          <RootStack email={this.state.email} password={this.state.password}></RootStack>
+        </Provider>
+         
       )
      
   }

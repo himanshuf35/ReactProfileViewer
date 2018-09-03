@@ -1,9 +1,7 @@
 import React,{Component} from 'react'
 import {View,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native' 
-import {Field} from './Fields'
-import {fstyles} from './Fields'
-import {styles} from './App'
-import {GButton} from './button'
+import {fstyles} from '../components/Fields'
+import {GButton} from '../components/button'
 
 var ImagePicker = require('react-native-image-picker');
 
@@ -31,7 +29,7 @@ constructor(props)
         name:'',
         email:'',
         password:'',
-        avatarSource:require('./man.png')
+        avatarSource:require('../images/man.png')
     }
 }
 
@@ -40,14 +38,16 @@ constructor(props)
 render()
 {
 
-    
+    let data=base64.encode(this.state.avatarSource)
+    let dataURL="data:image/png;base64,"+data
+    console.log(dataURL)
 
 
     return(
         <View style={Styles.container}>
         {/* <Image style={{marginTop:40,marginBottom:40}} source={require('./man.png')}/> */}
 
-        <TouchableOpacity onPress={()=>{
+        {/* <TouchableOpacity onPress={()=>{
 
            ImagePicker.showImagePicker(options, (response) => {
         console.log('Response = ', response);
@@ -79,7 +79,7 @@ render()
 
         <Image source={this.state.avatarSource} style={Styles.uploadAvatar} />
 
-        </TouchableOpacity>
+        </TouchableOpacity> */}
        
 
         <TextInput style={fstyles.Inputfield} placeholder="Me" ></TextInput>

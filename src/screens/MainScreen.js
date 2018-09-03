@@ -41,7 +41,7 @@ export class MainScreen extends Component{
     {
         return(
             <View style={styles.mainContainer}>
-            <Image style={styles.imageContainer} source={require('./gradientMain.png')}/>
+            <Image style={styles.imageContainer} source={require('../images/gradientMain.png')}/>
             <ActivityIndicator size="large" color="white"/>
             <Text style={styles.text}>
                 Loading

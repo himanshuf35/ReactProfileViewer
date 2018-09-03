@@ -125,7 +125,7 @@ export class UserList extends Component
                 <View style={styles.header}>
 
 
-                <Image style={styles.img} source={require('./orange.png')}/>
+                <Image style={styles.img} source={require('../images/orange.png')}/>
                 <Text style={{fontSize:24,color:'white',textAlign:'center'}}>{this.state.title}</Text>
                 {/* <TouchableOpacity style={styles.Micon} 
                 onPress={()=>{this.Ref.openDrawer()}}
@@ -154,7 +154,7 @@ export class UserList extends Component
 
 
                 <TouchableOpacity style={styles.filter} onPress={()=>{this.logout()}}>
-                <Image source={require('./logout.png')}/>
+                <Image source={require('../images/logout.png')}/>
                 </TouchableOpacity>
 
                 </View>

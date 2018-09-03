@@ -1,10 +1,8 @@
 import React,{Component} from 'react'
 import {View,TextInput,StyleSheet,TouchableOpacity,Text,Image} from 'react-native' 
-import {Field} from './Fields'
-import {fstyles} from './Fields'
-import {styles} from './App'
-import {GButton} from './button'
-import {RootStack} from './App'
+import {Field} from '../components/Fields'
+import {styles} from '../navigation/App'
+import {GButton} from '../components/button'
 import {AsyncStorage} from 'react-native'
 
 export class SignIn extends Component
@@ -105,7 +103,7 @@ export class SignIn extends Component
             <View style={styles.container}>
 
             <View>
-                <Image style={{marginBottom:40}} source={require('./logo.png')}/>
+                <Image style={{marginBottom:40}} source={require('../images/logo.png')}/>
             </View>
                  <Field 
                  placeholder1='E-Mail'

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {View} from 'react-native'
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import {CardViewer} from './cardviewer'
-import {Profile} from './Profile'
-import {SignIn} from './Signin'
-import {Settings}from './settings'
+import {CardViewer} from '../screens/cardviewer'
+import {Profile} from '../screens/Profile'
+import {SignIn} from '../screens/Signin'
+import {Settings}from '../screens/settings'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export class Tabar extends Component{

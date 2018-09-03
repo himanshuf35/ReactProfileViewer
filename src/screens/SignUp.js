@@ -1,10 +1,9 @@
 import React,{Component} from 'react'
 import {View,TextInput,StyleSheet,Text} from 'react-native' 
-import {Field} from './Fields'
-import {fstyles} from './Fields'
-import {styles} from './App'
-import {GButton} from './button'
-import {RootStack} from './App'
+import {Field} from '../components/Fields'
+import {fstyles} from '../components/Fields'
+import {styles} from '../navigation/App'
+import {GButton} from '../components/button'
 import { NavigationActions,StackActions } from 'react-navigation';
 // import {AsyncStorage} from 'react-native'
 

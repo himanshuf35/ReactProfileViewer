@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,ScrollView,Image} from 'react-native';
+import { StyleSheet, Text, View,Image} from 'react-native';
 
 
 
@@ -32,7 +32,7 @@ export class Card extends Component
                       <Text style={{fontSize:12}}>{this.props.timeString}</Text>
                       <Text style={styles.locationInfo}>in India</Text>
                     </View>
-                    <Image style={styles.location} source={require('./placeholder.png')}/>
+                    <Image style={styles.location} source={require('../images/placeholder.png')}/>
 
 
                  </View>
@@ -49,7 +49,7 @@ export class Card extends Component
                    <View style={styles.desc}>
                     <Text>{this.props.description}</Text>
                    </View> 
-                   <Image style={styles.location} source={require('./right-arrow.png')}/>
+                   <Image style={styles.location} source={require('../images/right-arrow.png')}/>
 
                  </View>
 
@@ -97,8 +97,7 @@ const styles = StyleSheet.create({
     paddingBottom:15,
     width:300
   },
-  location:
-  {
+  location:{
      position:'absolute',
      top:15,
      right:5

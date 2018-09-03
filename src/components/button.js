@@ -11,7 +11,7 @@ export class GButton extends Component{
         return(
             <TouchableOpacity onPress={()=>{this.props.press()}} style={{width:300}}>
                
-               <Image source={require('./orange.png')}  style={styles.img}>
+               <Image source={require('../images/orange.png')}  style={styles.img}>
                </Image>
                
                <Text style={styles.Text}>{this.props.title}</Text>

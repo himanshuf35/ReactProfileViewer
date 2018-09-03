@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,ScrollView,Image,FlatList} from 'react-native';
-import {Card} from './card'
+import {Card} from '../components/card'
 
 
 
@@ -22,7 +22,7 @@ export class CardViewer extends Component {
   constructor(props)
   {
      super(props)
-     var data=require('./cardata.json');
+     var data=require('../json/cardata.json');
      this.Array_Items=data.CardData
      this.state={
      }
@@ -33,9 +33,9 @@ export class CardViewer extends Component {
 
         <View style={styles.header}>
            
-            <Image style={{position:'absolute',top:20,left:10}} source={require('./menu.png')}/>
+            <Image style={{position:'absolute',top:20,left:10}} source={require('../images/menu.png')}/>
             <Text style={{fontSize:26,color:'white'}}>Trending</Text>
-            <Image style={{position:'absolute',top:20,right:10}}source={require('./earth.png')}/>
+            <Image style={{position:'absolute',top:20,right:10}} source={require('../images/earth.png')}/>
 
         </View>
 
