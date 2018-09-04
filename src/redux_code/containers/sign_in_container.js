@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {SignIn} from '.../screens/Signin.js'
+import {SignIn} from '/home/user/ReactProfileViewer/src/screens/Signin.js'
 import {signin} from '../actions/sign_in_action'
 
 const mapStateToProps = (state)=>

@@ -9,6 +9,6 @@ export const signin = (token,userdata)=>(dispatch)=>{
  
 }
 const setLoginData = (data) => ({
-    type: SET_LOGIN,
+    type: 'SET_LOGIN',
     data: data,
   });

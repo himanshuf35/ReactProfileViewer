@@ -18,10 +18,12 @@ import {AsyncStorage} from 'react-native'
 import {MainScreen} from '../screens/MainScreen'
 import {Profile} from '../screens/Profile'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import {createStore,applyMiddleware} from 'redux'
 import MainReducer from '../redux_code/reducer/mainReducer'
+import Info from '../redux_code/containers/sign_in_container'
+import thunk from 'redux-thunk'
 
-const store=createStore(MainReducer)
+const store=createStore(MainReducer,undefined,applyMiddleware(thunk))
  
 
 
@@ -60,7 +62,7 @@ export default class App extends Component{
       
       return(
         <Provider store={store}>
-          <RootStack email={this.state.email} password={this.state.password}></RootStack>
+        <RootStack email={this.state.email} password={this.state.password}></RootStack>
         </Provider>
          
       )
@@ -74,7 +76,7 @@ export const RootStack=createStackNavigator({
     screen:MainScreen
   },
   Home:{
-    screen:SignIn
+    screen:Info
   },
   SignUp:{
     screen:SignUP

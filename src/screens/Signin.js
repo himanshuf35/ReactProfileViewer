@@ -82,6 +82,7 @@ export class SignIn extends Component
         console.log("inStore")
 
         try {
+             this.props.signin(Token,userdata)
             console.log("token stored")
             // const value=await AsyncStorage.getItem("token")
             // console.log(value);
@@ -98,7 +99,7 @@ export class SignIn extends Component
 
     render()
     {
-        
+        // console.log("store:"+this.props.data)
         return(
             <View style={styles.container}>
 

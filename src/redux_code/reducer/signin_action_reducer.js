@@ -4,7 +4,7 @@ const initialState = {
 
   export const sigin_reducer=(state = initialState,action)=>{
 
-     if(action.type === SET_LOGIN)
+     if(action.type === 'SET_LOGIN')
      {
            return {
                ...state,
