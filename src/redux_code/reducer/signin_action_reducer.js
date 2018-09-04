@@ -1,5 +1,6 @@
 const initialState = {
-    data: [],
+    data: []
+    
   };
 
   export const sigin_reducer=(state = initialState,action)=>{
@@ -9,6 +10,7 @@ const initialState = {
            return {
                ...state,
                data:action.data
+              
            }
      }
      else

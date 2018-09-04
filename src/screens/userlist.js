@@ -16,7 +16,7 @@ export class UserList extends Component
     constructor(props)
     {
         super(props)
-        this.getUserData()
+        
         // this.getData()
         this.state={
           data:this.Data,
@@ -25,6 +25,11 @@ export class UserList extends Component
           page:1,
           userImage:''
         }
+    }
+
+    componentWillMount()
+    {
+        this.getUserData()
     }
 
     //function to get UserData
@@ -38,7 +43,10 @@ export class UserList extends Component
             accessToken:token,
             userdata:JSON.parse(value)
         })
-         await this.getData();
+         await this.props.getdata(this.state.page,this.state.accessToken,this.state.userdata);
+         await this.setState({
+             page:this.state.page+1
+         })
         
         console.log(this.state.accessToken+","+this.state.userdata)
         // console.log(value);
@@ -47,36 +55,36 @@ export class UserList extends Component
 
     //function to get Userlist Data
 
-    getData=async()=>{
-        console.log("entered getData")
-        try {
-            console.log("After Try")
-            const res= await fetch('http://192.168.12.39:7000/api/v1/user/getUserList/0/'+this.state.page+'/10',
-            {
-                'method':'GET',
-                'headers':{
-                    'x-access-token':this.state.accessToken
+    // getData=async()=>{
+    //     console.log("entered getData")
+    //     try {
+    //         console.log("After Try")
+    //         const res= await fetch('http://192.168.12.39:7000/api/v1/user/getUserList/0/'+this.state.page+'/10',
+    //         {
+    //             'method':'GET',
+    //             'headers':{
+    //                 'x-access-token':this.state.accessToken
 
-                    // 'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhpbWFuc2h1bWtpQG91dGxvb2suY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkUVhDSDBSUjBoMWhMZDZjRHEwTXRoTzFLNElXTmFjQjhEcTBnUFFqU0lwWHIucEpNazFrNEciLCJpYXQiOjE1MzU2MTk3NzMsImV4cCI6MTUzNTcwNjE3M30.wJAdI6qhjpeCiro8nllHmjXgqFwK_2f1YATVW1FfArQ'
-                }
-            })
+    //                 // 'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhpbWFuc2h1bWtpQG91dGxvb2suY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkUVhDSDBSUjBoMWhMZDZjRHEwTXRoTzFLNElXTmFjQjhEcTBnUFFqU0lwWHIucEpNazFrNEciLCJpYXQiOjE1MzU2MTk3NzMsImV4cCI6MTUzNTcwNjE3M30.wJAdI6qhjpeCiro8nllHmjXgqFwK_2f1YATVW1FfArQ'
+    //             }
+    //         })
    
      
-    const data=await res.json();
-    console.log(data)
-    this.Data=data.message.results
-    this.setState({data:this.state.data.concat(data.message.results),page:this.state.page+1})
+    // const data=await res.json();
+    // console.log(data)
+    // this.Data=data.message.results
+    // this.setState({data:this.state.data.concat(data.message.results),page:this.state.page+1})
      
 
-        } catch (error) {
+    //     } catch (error) {
             
-          console.log(error)
+    //       console.log(error)
             
-        }
+    //     }
         
-    }
+    // }
  
-    //Logout Function
+    // //Logout Function
 
     logout=async()=>
     {
@@ -127,15 +135,6 @@ export class UserList extends Component
 
                 <Image style={styles.img} source={require('../images/orange.png')}/>
                 <Text style={{fontSize:24,color:'white',textAlign:'center'}}>{this.state.title}</Text>
-                {/* <TouchableOpacity style={styles.Micon} 
-                onPress={()=>{this.Ref.openDrawer()}}
-                >
-                <Image  source={require('./menu-circular-button.png')}/>
-                </TouchableOpacity> */}
-
-                {/* <TouchableOpacity style={styles.filter} onPress={()=>{this.setState({SelectedMailType:this.state.SelectedMailType.reverse()})}}>
-                <Image source={require('./filter-tool-black-shape.png')}/>
-                </TouchableOpacity> */}
                 
                 <View style={styles.profile}>
                     <TouchableOpacity
@@ -161,9 +160,15 @@ export class UserList extends Component
 
                  
                  <FlatList
-                 onEndReached={()=>{this.getData()}}
-                 data={this.state.data}
-                 extraData={this.state}
+                 onEndReached={()=>{
+                     this.props.getdata(this.state.page,this.state.accessToken,this.state.userdata)
+                     this.setState({
+                         page:this.state.page+1
+                     })
+                     
+                     }}
+                 data={this.props.userdata}
+                 extraData={this.props}
                  renderItem={({item})=>{
                      return(
                          <View style={styles.infoBox}>

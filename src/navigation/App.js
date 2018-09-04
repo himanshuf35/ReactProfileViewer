@@ -21,6 +21,8 @@ import {Provider} from 'react-redux'
 import {createStore,applyMiddleware} from 'redux'
 import MainReducer from '../redux_code/reducer/mainReducer'
 import Info from '../redux_code/containers/sign_in_container'
+import Userlist from '../redux_code/containers/userlist_container'
+import Update from '../redux_code/containers/profile_update_container'
 import thunk from 'redux-thunk'
 
 const store=createStore(MainReducer,undefined,applyMiddleware(thunk))
@@ -42,19 +44,7 @@ export default class App extends Component{
     
   }
 
-  // isLoggedIn=async()=>
-  // {
-  //          const value=await AsyncStorage.getItem("token")
-  //          console.log(value);
-  //          if(value !== null)
-  //          {
-  //           this.setState({screenToNavigate:'UserList'})
-  //          }
-  //          else{
-  //           this.setState({screenToNavigate:'Home'})
-  //          }
-  //         //  console.log(value);
-  // }
+ 
 
   render() {
    
@@ -85,10 +75,10 @@ export const RootStack=createStackNavigator({
     screen:Tabar
   },
   UserList:{
-    screen:UserList
+    screen:Userlist
   },
   Profile:{
-    screen:Profile
+    screen:Update
   }
   
 },{

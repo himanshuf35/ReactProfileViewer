@@ -20,86 +20,20 @@ export class SignIn extends Component
         password:'',
         isPassValid:false
         }
-        // this.isLoggedIn()
+        
     }
 
-//     isLoggedIn=async()=>
-//   {
-//            const value=await AsyncStorage.getItem("token")
-//            console.log(value);
-//            if(value !== null)
-//            {
-//             this.props.navigation.navigate('UserList')
-//            }
-//         //    else{
-           
-//         //    } this.setState({screenToNavigate:'Home'})
-//           //  console.log(value);
-//   }
-
-    userSignIn=async()=>{
-        console.log("entered userSignIn")
-       try {
-        console.log("After Try")
-        const res= await fetch('http://192.168.12.39:7000/api/v1/user/authenticateUser',
+    componentWillReceiveProps(nextprops)
+    {
+        if(nextprops.data.isLogin)
         {
-            'method':'POST',
-            'headers': {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                "email":this.state.email,
-                "password":this.state.password
-              }),
-        })
-
- 
-          const data=await res.json();
-          if(data.success)
-          {
-            this.storeToken(data.token,data.data)
-            console.log("here"+data)
-            this.props.navigation.navigate('UserList');
-            alert("Logged In")
-
-              
-          }
-          else{
-            //   console.log(data)
-            //   alert(data.message)
-          }
-          
-
-    } catch (error) {
-        
-      console.log(error)
-        
-    }
-    }
-
-    storeToken=async(Token,userdata)=>{
-        console.log("inStore")
-
-        try {
-             this.props.signin(Token,userdata)
-            console.log("token stored")
-            // const value=await AsyncStorage.getItem("token")
-            // console.log(value);
-             await AsyncStorage.setItem('token',Token)
-             await AsyncStorage.setItem('UserData',JSON.stringify(userdata))
-           
-        } 
-        
-        catch (error) {
-            console.log(error)
+            nextprops.navigation.navigate('UserList')
         }
-        
     }
 
     render()
     {
-        // console.log("store:"+this.props.data)
+        
         return(
             <View style={styles.container}>
 
@@ -115,24 +49,8 @@ export class SignIn extends Component
                   />
                  <View>
                      <GButton press={()=>{
-                        //  if((this.state.email === this.props.navigation.state.params.email)
-                        //      &&
-                        //      (this.state.password === this.props.navigation.state.params.password)
-                        //  ){
-                        //    alert("User Logged In")
-                        //  this.props.navigation.navigate('UserList',{
-                        //     //  name:this.props.navigation.state.params.name,
-                        //     //  email:this.props.navigation.state.params.email,
-                        //     //  password:this.props.navigation.state.params.email
-
-                        //  })      
-                        //  }
-                        //  else{
-                        //      alert("Wrong Information!")
-                        //  }
-
-                         this.userSignIn()
-                        // this.props.navigation.navigate('UserList')
+                        
+                         this.props.signin(this.state.email,this.state.password)
                          
                          }} title="SignIn"/>
                  </View>
@@ -143,7 +61,7 @@ export class SignIn extends Component
                          </Text>
                      </TouchableOpacity>
                  </View>
-                 {/* <Text>{this.props.navigation.state.params.email},{this.props.navigation.state.params.password}</Text> */}
+                 
                  
                  
             </View>

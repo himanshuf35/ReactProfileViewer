@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {View,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native' 
+import {View,TextInput,StyleSheet,Image,TouchableOpacity,Text} from 'react-native' 
 import {fstyles} from '../components/Fields'
 import {GButton} from '../components/button'
 
@@ -19,7 +19,8 @@ var options = {
 export class Profile extends Component{
     static navigationOptions = {
         title: 'Profile',
-        header:null
+        header:null,
+        isUpdated:''
       };
 
 constructor(props)
@@ -34,20 +35,34 @@ constructor(props)
 }
 
 
+componentWillReceiveProps(nextprops)
+{
+  console.log("props changed"+nextprops.isProfileUpdated)
+  if(nextprops.isProfileUpdated)
+  {
+    console.log("it's true")
+    this.setState({isUpdated:"Image is updated"})
+  }
+  
+}
+
+
 
 render()
 {
 
-    let data=base64.encode(this.state.avatarSource)
-    let dataURL="data:image/png;base64,"+data
-    console.log(dataURL)
+    // let data=base64.encode(this.state.avatarSource)
+    // let dataURL="data:image/png;base64,"+data
+    // console.log(dataURL)
 
 
     return(
         <View style={Styles.container}>
         {/* <Image style={{marginTop:40,marginBottom:40}} source={require('./man.png')}/> */}
 
-        {/* <TouchableOpacity onPress={()=>{
+        <Text style={{fontSize:20,color:'red'}}>{this.state.isUpdated}</Text>
+
+        <TouchableOpacity onPress={()=>{
 
            ImagePicker.showImagePicker(options, (response) => {
         console.log('Response = ', response);
@@ -62,10 +77,10 @@ render()
           console.log('User tapped custom button: ', response.customButton);
         }
         else {
-          let source = { uri: response.uri };
+          // let source = { uri: response.uri };
       
           // You can also display the image using data:
-          // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+          let source = { uri: 'data:image/jpeg;base64,' + response.data };
       
           this.setState({
             avatarSource: source
@@ -79,14 +94,20 @@ render()
 
         <Image source={this.state.avatarSource} style={Styles.uploadAvatar} />
 
-        </TouchableOpacity> */}
+        </TouchableOpacity>
        
 
         <TextInput style={fstyles.Inputfield} placeholder="Me" ></TextInput>
         <TextInput style={fstyles.Inputfield} placeholder="xyz.com" ></TextInput>
         <TextInput style={Styles.Bottomfield} placeholder="******" ></TextInput>
         <View style={{marginTop:40}}>
-            <GButton title="Save" press={()=>{alert("Data saved")}}/>
+            <GButton title="Save" press={()=>{
+            
+            this.props.profile_update(this.props.email,this.state.avatarSource,this.props.token)
+        
+          
+
+            }}/>
         </View>
         </View>
     )
@@ -108,6 +129,9 @@ const Styles=StyleSheet.create(
         backgroundColor: 'white',
       },
       uploadAvatar:{
+        height:64,
+        width:64,
+        borderRadius: 32,
           marginTop:50,
           marginBottom:40
         }

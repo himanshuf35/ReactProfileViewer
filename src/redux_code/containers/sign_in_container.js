@@ -12,7 +12,7 @@ const mapStateToProps = (state)=>
 
 const mapDispatchToProps = (dispatch)=>{
     return {
-        signin:(token,userdata)=>{ dispatch(signin(token,userdata))}
+        signin:(email,password)=>{ dispatch(signin(email,password))}
     }
 }
 
