@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {UserList} from '/home/user/ReactProfileViewer/src/screens/userlist.js'
+import {UserList} from '../../screens/userlist'
 import {getData} from '../actions/userlist_action'
 
 const mapStateToProps=(state)=>{

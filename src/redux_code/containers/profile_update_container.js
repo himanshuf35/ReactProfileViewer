@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {Profile} from '/home/user/ReactProfileViewer/src/screens/Profile.js'
+import {Profile} from '../../screens/Profile'
 import {profile_update} from '../actions/profile_update_action'
 
 const mapStateToProps = (state)=>
